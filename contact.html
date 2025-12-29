@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - Termux</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f8f9fa;
+        }
+
+        /* Header & Navigation */
+        header {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            color: white;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #00ff41;
+            text-decoration: none;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s ease;
+            font-weight: 500;
+        }
+
+        nav a:hover {
+            color: #00ff41;
+        }
+
+        /* Page Title */
+        .page-title {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        .page-title h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .page-title p {
+            color: #ccc;
+            font-size: 1.1rem;
+        }
+
+        /* Main Content */
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        /* Contact Grid */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        /* Contact Info */
+        .contact-info {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            border-left: 4px solid #00ff41;
+        }
+
+        .contact-info h2 {
+            color: #1a1a1a;
+            margin-bottom: 2rem;
+            font-size: 1.8rem;
+        }
+
+        .contact-item {
+            margin-bottom: 2rem;
+        }
+
+        .contact-item h3 {
+            color: #00ff41;
+            margin-bottom: 0.5rem;
+            font-size: 1.2rem;
+        }
+
+        .contact-item p {
+            color: #555;
+            line-height: 1.8;
+        }
+
+        .contact-item a {
+            color: #00ff41;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .contact-item a:hover {
+            color: #00dd35;
+            text-decoration: underline;
+        }
+
+        /* Contact Form */
+        .contact-form {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            border-left: 4px solid #00ff41;
+        }
+
+        .contact-form h2 {
+            color: #1a1a1a;
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #1a1a1a;
+            font-weight: 600;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="phone"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 5px;
+            font-family: inherit;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            resize: vertical;
+        }
+
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        input[type="phone"]:focus,
+        select:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #00ff41;
+            box-shadow: 0 0 10px rgba(0, 255, 65, 0.2);
+        }
+
+        textarea {
+            min-height: 150px;
+            font-family: 'Courier New', monospace;
+        }
+
+        .form-hint {
+            font-size: 0.85rem;
+            color: #999;
+            margin-top: 0.25rem;
+        }
+
+        .form-group.required label::after {
+            content: " *";
+            color: #ff6b6b;
+        }
+
+        /* Buttons */
+        .form-actions {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        button {
+            padding: 0.75rem 2rem;
+            font-size: 1rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-submit {
+            background-color: #00ff41;
+            color: #1a1a1a;
+            flex: 1;
+        }
+
+        .btn-submit:hover {
+            background-color: #00dd35;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 255, 65, 0.3);
+        }
+
+        .btn-reset {
+            background-color: #999;
+            color: white;
+            flex: 1;
+        }
+
+        .btn-reset:hover {
+            background-color: #777;
+        }
+
+        /* Messages */
+        .alert {
+            padding: 1rem;
+            border-radius: 5px;
+            margin-bottom: 1.5rem;
+            display: none;
+        }
+
+        .alert.success {
+            background: #d4edda;
+            color: #155724;
+            border: 2px solid #28a745;
+            display: block;
+        }
+
+        .alert.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 2px solid #f5c6cb;
+            display: block;
+        }
+
+        /* Contact Channels */
+        .contact-channels {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            border-left: 4px solid #00ff41;
+            grid-column: 1 / -1;
+        }
+
+        .contact-channels h2 {
+            color: #1a1a1a;
+            margin-bottom: 2rem;
+            font-size: 1.8rem;
+        }
+
+        .channels-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+
+        .channel {
+            text-align: center;
+            padding: 1.5rem;
+            background: #f8f9fa;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .channel:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 255, 65, 0.1);
+            background: white;
+        }
+
+        .channel-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .channel h3 {
+            color: #00ff41;
+            margin-bottom: 0.5rem;
+        }
+
+        .channel p {
+            color: #555;
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+        }
+
+        .channel a {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background: #00ff41;
+            color: #1a1a1a;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .channel a:hover {
+            background: #00dd35;
+            transform: scale(1.05);
+        }
+
+        /* Footer */
+        footer {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            color: white;
+            padding: 3rem 2rem 1rem;
+            text-align: center;
+            margin-top: 3rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            margin-bottom: 2rem;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+
+        .footer-links a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: #00ff41;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #444;
+            padding-top: 1rem;
+            color: #999;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav ul {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            nav {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .page-title h1 {
+                font-size: 1.8rem;
+            }
+
+            .contact-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .form-actions {
+                flex-direction: column;
+            }
+
+            .channels-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header & Navigation -->
+    <header>
+        <nav>
+            <a href="index.html" class="logo">⚡ Termux</a>
+            <ul>
+                <li><a href="index.html#features">Features</a></li>
+                <li><a href="documentation.html">Documentation</a></li>
+                <li><a href="faq.html">FAQ</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Page Title -->
+    <section class="page-title">
+        <h1>📧 Get In Touch</h1>
+        <p>Have questions? We'd love to hear from you!</p>
+    </section>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Contact Grid -->
+        <div class="contact-grid">
+            <!-- Contact Info -->
+            <div class="contact-info">
+                <h2>Contact Information</h2>
+
+                <div class="contact-item">
+                    <h3>📍 Community</h3>
+                    <p>
+                        Termux is an open-source community project. The best way to get help is to engage with our active community members.
+                    </p>
+                </div>
+
+                <div class="contact-item">
+                    <h3>🐛 Report Issues</h3>
+                    <p>
+                        Found a bug? Report it on our <a href="https://github.com/termux/termux-app/issues" target="_blank">GitHub Issues</a> page.
+                    </p>
+                </div>
+
+                <div class="contact-item">
+                    <h3>💬 Join the Chat</h3>
+                    <p>
+                        Connect with other users on <a href="https://gitter.im/termux/community" target="_blank">Gitter Chat</a> for real-time discussion.
+                    </p>
+                </div>
+
+                <div class="contact-item">
+                    <h3>📚 Documentation</h3>
+                    <p>
+                        Most questions are answered in our <a href="https://wiki.termux.com" target="_blank">Wiki</a> or <a href="documentation.html">Documentation</a>.
+                    </p>
+                </div>
+
+                <div class="contact-item">
+                    <h3>👥 Reddit Community</h3>
+                    <p>
+                        Join thousands of users discussing Termux on <a href="https://reddit.com/r/termux" target="_blank">r/termux</a>.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Contact Form -->
+            <div class="contact-form">
+                <h2>Send us a Message</h2>
+                <p style="color: #999; margin-bottom: 1.5rem;">Fill out the form below and we'll get back to you as soon as possible.</p>
+
+                <div id="successAlert" class="alert success">
+                    ✓ Thank you! Your message has been sent successfully.
+                </div>
+
+                <div id="errorAlert" class="alert error">
+                    ✗ There was an error sending your message. Please try again.
+                </div>
+
+                <form id="contactForm">
+                    <div class="form-group required">
+                        <label for="name">Full Name</label>
+                        <input type="text" id="name" name="name" required placeholder="John Doe">
+                    </div>
+
+                    <div class="form-group required">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" name="email" required placeholder="your@email.com">
+                        <div class="form-hint">We'll never share your email address</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phone">Phone Number (Optional)</label>
+                        <input type="tel" id="phone" name="phone" placeholder="+1 (555) 123-4567">
+                    </div>
+
+                    <div class="form-group required">
+                        <label for="subject">Subject</label>
+                        <select id="subject" name="subject" required>
+                            <option value="">-- Select a Subject --</option>
+                            <option value="bug_report">Bug Report</option>
+                            <option value="feature_request">Feature Request</option>
+                            <option value="general_inquiry">General Inquiry</option>
+                            <option value="contribution">Contribution/Partnership</option>
+                            <option value="documentation">Documentation Feedback</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group required">
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" required placeholder="Tell us what's on your mind..."></textarea>
+                        <div class="form-hint">Please be as detailed as possible</div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn-submit">Send Message</button>
+                        <button type="reset" class="btn-reset">Clear Form</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Contact Channels -->
+            <div class="contact-channels">
+                <h2>Connect With Us</h2>
+                <p style="color: #555; margin-bottom: 2rem;">Choose your preferred way to reach out:</p>
+
+                <div class="channels-grid">
+                    <div class="channel">
+                        <div class="channel-icon">🐙</div>
+                        <h3>GitHub</h3>
+                        <p>Report bugs and contribute code</p>
+                        <a href="https://github.com/termux" target="_blank">Visit GitHub</a>
+                    </div>
+
+                    <div class="channel">
+                        <div class="channel-icon">💬</div>
+                        <h3>Gitter Chat</h3>
+                        <p>Join our real-time community chat</p>
+                        <a href="https://gitter.im/termux/community" target="_blank">Open Chat</a>
+                    </div>
+
+                    <div class="channel">
+                        <div class="channel-icon">👥</div>
+                        <h3>Reddit</h3>
+                        <p>Discuss with the Termux community</p>
+                        <a href="https://reddit.com/r/termux" target="_blank">Join r/termux</a>
+                    </div>
+
+                    <div class="channel">
+                        <div class="channel-icon">📚</div>
+                        <h3>Wiki</h3>
+                        <p>Explore our documentation</p>
+                        <a href="https://wiki.termux.com" target="_blank">Read Wiki</a>
+                    </div>
+
+                    <div class="channel">
+                        <div class="channel-icon">🌐</div>
+                        <h3>Website</h3>
+                        <p>Visit our official website</p>
+                        <a href="https://termux.dev" target="_blank">termux.dev</a>
+                    </div>
+
+                    <div class="channel">
+                        <div class="channel-icon">📧</div>
+                        <h3>Email</h3>
+                        <p>Contact the team directly</p>
+                        <a href="mailto:contact@termux.dev">Send Email</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Additional Info -->
+        <section style="background: white; padding: 2rem; border-radius: 8px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); margin-top: 3rem; border-left: 4px solid #00ff41;">
+            <h2 style="color: #1a1a1a; margin-bottom: 1rem;">Response Times</h2>
+            <p style="color: #555; margin-bottom: 1rem;">
+                Since Termux is maintained by a dedicated community of volunteers, response times may vary:
+            </p>
+            <ul style="color: #555; margin-left: 2rem; line-height: 2;">
+                <li><strong>Bug Reports (GitHub):</strong> Usually addressed within 1-7 days</li>
+                <li><strong>Community Chat (Gitter):</strong> Usually get responses within hours</li>
+                <li><strong>Reddit (r/termux):</strong> Active community, often get answers quickly</li>
+                <li><strong>Contact Form:</strong> We'll respond within 5-10 business days</li>
+            </ul>
+            <p style="color: #999; margin-top: 1rem; font-style: italic;">
+                ⏰ For urgent issues, please use GitHub Issues or our community chat for faster assistance.
+            </p>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <h3>Termux Community</h3>
+            <div class="footer-links">
+                <a href="index.html">Home</a>
+                <a href="documentation.html">Documentation</a>
+                <a href="faq.html">FAQ</a>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+                <a href="https://github.com/termux" target="_blank">GitHub</a>
+                <a href="https://termux.dev" target="_blank">Official Site</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Termux Project. All rights reserved. | Made with ❤️ by the community</p>
+        </div>
+    </footer>
+
+    <script>
+        // Form submission handler
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            // Get form data
+            const formData = new FormData(this);
+            const data = Object.fromEntries(formData);
+
+            // Simple validation
+            if (!data.name || !data.email || !data.subject || !data.message) {
+                showError();
+                return;
+            }
+
+            // Email validation
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(data.email)) {
+                showError();
+                return;
+            }
+
+            // In a real application, you would send this data to a server
+            // For now, we'll just show a success message
+            console.log('Form Data:', data);
+            
+            // Show success message
+            showSuccess();
+
+            // Clear form
+            this.reset();
+
+            // Hide message after 5 seconds
+            setTimeout(() => {
+                document.getElementById('successAlert').style.display = 'none';
+            }, 5000);
+        });
+
+        function showSuccess() {
+            document.getElementById('successAlert').style.display = 'block';
+            document.getElementById('errorAlert').style.display = 'none';
+            scrollToTop();
+        }
+
+        function showError() {
+            document.getElementById('errorAlert').style.display = 'block';
+            document.getElementById('successAlert').style.display = 'none';
+            scrollToTop();
+        }
+
+        function scrollToTop() {
+            document.querySelector('.contact-form').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Clear alert messages when user starts typing
+        document.getElementById('contactForm').addEventListener('input', function() {
+            document.getElementById('successAlert').style.display = 'none';
+            document.getElementById('errorAlert').style.display = 'none';
+        });
+    </script>
+</body>
+</html>
