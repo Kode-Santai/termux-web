@@ -1,0 +1,916 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ - Frequently Asked Questions about Termux</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f8f9fa;
+        }
+
+        /* Header & Navigation */
+        header {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            color: white;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #00ff41;
+            text-decoration: none;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s ease;
+            font-weight: 500;
+        }
+
+        nav a:hover {
+            color: #00ff41;
+        }
+
+        /* Page Title */
+        .page-title {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        .page-title h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .page-title p {
+            color: #ccc;
+            font-size: 1.1rem;
+        }
+
+        /* Main Content */
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        /* Search Box */
+        .search-box {
+            background: white;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            text-align: center;
+        }
+
+        .search-box input {
+            width: 100%;
+            max-width: 500px;
+            padding: 0.75rem 1rem;
+            font-size: 1rem;
+            border: 2px solid #00ff41;
+            border-radius: 5px;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .search-box input:focus {
+            box-shadow: 0 0 10px rgba(0, 255, 65, 0.3);
+        }
+
+        /* FAQ Categories */
+        .faq-category {
+            margin-bottom: 3rem;
+        }
+
+        .category-title {
+            font-size: 1.8rem;
+            color: #00ff41;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #00ff41;
+        }
+
+        /* Accordion */
+        .faq-item {
+            background: white;
+            margin-bottom: 1rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .faq-item:hover {
+            box-shadow: 0 4px 15px rgba(0, 255, 65, 0.1);
+        }
+
+        .faq-question {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 2px solid #e0e0e0;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            color: #1a1a1a;
+        }
+
+        .faq-question:hover {
+            background: #f0f0f0;
+            border-color: #00ff41;
+            color: #00ff41;
+        }
+
+        .faq-toggle {
+            font-size: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .faq-item.active .faq-toggle {
+            transform: rotate(180deg);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            padding: 0 1.5rem;
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 1000px;
+            padding: 1.5rem;
+        }
+
+        .faq-answer p {
+            color: #555;
+            margin-bottom: 1rem;
+            line-height: 1.8;
+        }
+
+        .faq-answer ul {
+            margin-left: 2rem;
+            color: #555;
+        }
+
+        .faq-answer li {
+            margin-bottom: 0.5rem;
+            line-height: 1.8;
+        }
+
+        .faq-answer code {
+            background: #1a1a1a;
+            color: #00ff41;
+            padding: 0.2rem 0.5rem;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+        }
+
+        .code-block {
+            background: #1a1a1a;
+            color: #00ff41;
+            padding: 1rem;
+            border-radius: 5px;
+            margin: 1rem 0;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+        }
+
+        /* Links */
+        a {
+            color: #00ff41;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: #00dd35;
+            text-decoration: underline;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            border-left: 4px solid #00ff41;
+            text-align: center;
+            margin-top: 3rem;
+        }
+
+        .contact-section h3 {
+            color: #1a1a1a;
+            margin-bottom: 1rem;
+        }
+
+        .contact-section p {
+            color: #555;
+            margin-bottom: 1rem;
+        }
+
+        /* Footer */
+        footer {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            color: white;
+            padding: 3rem 2rem 1rem;
+            text-align: center;
+            margin-top: 3rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            margin-bottom: 2rem;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+
+        .footer-links a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: #00ff41;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #444;
+            padding-top: 1rem;
+            color: #999;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav ul {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            nav {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .page-title h1 {
+                font-size: 1.8rem;
+            }
+
+            .faq-question {
+                font-size: 0.95rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header & Navigation -->
+    <header>
+        <nav>
+            <a href="index.html" class="logo">⚡ Termux</a>
+            <ul>
+                <li><a href="index.html#features">Features</a></li>
+                <li><a href="documentation.html">Documentation</a></li>
+                <li><a href="faq.html">FAQ</a></li>
+                <li><a href="about.html">About</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Page Title -->
+    <section class="page-title">
+        <h1>❓ FAQ - Frequently Asked Questions</h1>
+        <p>Find answers to common questions about Termux</p>
+    </section>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Search Box -->
+        <div class="search-box">
+            <input type="text" id="searchBox" placeholder="Search FAQs... (Type to filter questions)">
+        </div>
+
+        <!-- Getting Started Section -->
+        <div class="faq-category">
+            <h2 class="category-title">🚀 Getting Started</h2>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span>What is Termux and what can I do with it?</span>
+                    <span class="faq-toggle">▼</span>
+                </div>
+                <div class="faq-answer">
+                    <p>
+                        Termux is a terminal emulator and Linux environment that runs on Android devices. It allows you to run a full-featured Linux system directly on your Android phone or tablet without rooting. You can:
+                    </p>
+                    <ul>
+                        <li>Code in Python, JavaScript, Java, C++, and more</li>
+                        <li>Use Linux command-line tools and utilities</li>
+                        <li>Run web servers and databases</li>
+                        <li>Manage systems remotely via SSH</li>
+                        <li>Create scripts and automate tasks</li>
+                        <li>Learn Linux and programming</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span>Do I need to root my Android device to use Termux?</span>
+                    <span class="faq-toggle">▼</span>
+                </div>
+                <div class="faq-answer">
+                    <p>
+                        <strong>No!</strong> Termux does NOT require rooting your device. It works on standard, unrooted Android devices. It uses Android's native PRoot technology to create an isolated Linux environment.
+                    </p>
+                    <p>
+                        This makes it safe and secure - you don't risk your device's stability or security by rooting.
+                    </p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span>How do I install Termux?</span>
+                    <span class="faq-toggle">▼</span>
+                </div>
+                <div class="faq-answer">
+                    <p><strong>From F-Droid (Recommended):</strong></p>
+                    <ol>
+                        <li>Visit <a href="https://f-droid.org/en/packages/com.termux/" target="_blank">F-Droid</a></li>
+                        <li>Search for "Termux"</li>
+                        <li>Tap Install</li>
+                    </ol>
+                    <p><strong>From Google Play Store:</strong></p>
+                    <ol>
+                        <li>Search for "Termux" in Play Store</li>
+                        <li>Tap Install</li>
+                    </ol>
+                    <p>F-Droid is recommended because it offers updates independent of Play Store policies.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span>What should I do after installing Termux?</span>
+                    <span class="faq-toggle">▼</span>
+                </div>
+                <div class="faq-answer">
+                    <p>After installation, follow these steps:</p>
+                    <div class="code-block">
+# Update packages
+$ apt update && apt upgrade -y
+
+# Install essential tools
+$ apt install git curl wget
+
+# (Optional) Request storage access
+$ termux-setup-storage
+                    </div>
+                    <p>Then you're ready to start using Termux!</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Installation & Configuration -->
+        <div class="faq-category">
+            <h2 class="category-title">⚙️ Installation & Configuration</h2>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span>What are the system requirements for Termux?</span>
+                    <span class="faq-toggle">▼</span>
+                </div>
+                <div class="faq-answer">
+                    <p><strong>Minimum Requirements:</strong></p>
+                    <ul>
+                        <li>Android 5.0 or higher</li>
+                        <li>100 MB free storage space</li>
+                        <li>1 GB RAM recommended</li>
+                    </ul>
+                    <p><strong>Better Experience:</strong></p>
+                    <ul>
+                        <li>Android 7.0 or higher</li>
+                        <li>2GB+ free storage</li>
+                        <li>2GB+ RAM</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span>How do I update packages in Termux?</span>
+                    <span class="faq-toggle">▼</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Use the <code>apt</code> package manager:</p>
+                    <div class="code-block">
+# Update package list
+$ apt update
+
+# Upgrade all packages
+$ apt upgrade
+
+# Or combine both
+$ apt update && apt upgrade -y
+                    </div>
+                    <p>It's recommended to do this regularly to keep your system secure and up-to-date.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span>How do I access my phone's storage from Termux?</span>
+                    <span class="faq-toggle">▼</span>
+                </div>
+                <div class="faq-answer">
+                    <p>First, request storage access:</p>
+                    <div class="code-block">
+$ termux-setup-storage
+                    </div>
+                    <p>Then access shared storage:</p>
+                    <div class="code-block">
+$ cd ~/storage/downloads    # Download folder
+$ cd ~/storage/pictures     # Pictures folder
+$ cd ~/storage/documents    # Documents folder
+$ ls ~/storage              # See all available paths
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span>How do I change my default shell from bash to zsh?</span>
+                    <span class="faq-toggle">▼</span>
+                </div>
+                <div class="faq-answer">
+                    <div class="code-block">
+# Install zsh
+$ apt install zsh
+
+# Change default shell
+$ chsh -s zsh
+
+# Verify
+$ echo $SHELL
+                    </div>
+                    <p>Log out and back in for changes to take effect.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Usage & Development -->
+        <div class="faq-category">
+            <h2 class="category-title">💻 Usage & Development</h2>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span>Can I use Python in Termux?</span>
+                    <span class="faq-toggle">▼</span>
+                </div>
+                <div class="faq-answer">
+                    <p><strong>Yes!</strong> Termux has full Python support:</p>
+                    <div class="code-block">
+# Install Python
+$ apt install python python-pip
+
+# Check version
+$ python --version
+
+# Install packages
+$ pip install requests flask django
+
+# Create and run Python scripts
+$ python myscript.py
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span>Can I use Node.js and npm in Termux?</span>
+                    <span class="faq-toggle">▼</span>
+                </div>
+                <div class="faq-answer">
+                    <p><strong>Yes!</strong> Full Node.js support is available:</p>
+                    <div class="code-block">
+# Install Node.js
+$ apt install nodejs npm
+
+# Check versions
+$ node --version
+$ npm --version
+
+# Create projects
+$ npm init -y
+$ npm install express
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span>How do I use Git in Termux?</span>
+                    <span class="faq-toggle">▼</span>
+                </div>
+                <div class="faq-answer">
+                    <div class="code-block">
+# Install Git
+$ apt install git
+
+# Configure Git
+$ git config --global user.name "Your Name"
+$ git config --global user.email "your@email.com"
+
+# Clone a repository
+$ git clone https://github.com/user/repo.git
+
+# Basic Git workflow
+$ cd repo
+$ git add .
+$ git commit -m "Your message"
+$ git push origin main
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span>Can I run a web server in Termux?</span>
+                    <span class="faq-toggle">▼</span>
+                </div>
+                <div class="faq-answer">
+                    <p><strong>Yes! Several options available:</strong></p>
+                    <p><strong>Python HTTP Server:</strong></p>
+                    <div class="code-block">
+$ python -m http.server 8000
+                    </div>
+                    <p><strong>Node.js with Express:</strong></p>
+                    <div class="code-block">
+$ apt install nodejs npm
+$ npm install express
+$ node server.js
+                    </div>
+                    <p><strong>Nginx:</strong></p>
+                    <div class="code-block">
+$ apt install nginx
+$ nginx
+$ # Access at http://localhost:8080
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span>How do I install packages that aren't in apt?</span>
+                    <span class="faq-toggle">▼</span>
+                </div>
+                <div class="faq-answer">
+                    <p><strong>For Python packages:</strong></p>
+                    <div class="code-block">
+$ pip install package-name
+                    </div>
+                    <p><strong>For Node.js packages:</strong></p>
+                    <div class="code-block">
+$ npm install package-name
+                    </div>
+                    <p><strong>For Ruby packages:</strong></p>
+                    <div class="code-block">
+$ gem install package-name
+                    </div>
+                    <p><strong>From source:</strong></p>
+                    <div class="code-block">
+$ git clone https://github.com/repo/project.git
+$ cd project
+$ ./configure && make && make install
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Troubleshooting -->
+        <div class="faq-category">
+            <h2 class="category-title">🔧 Troubleshooting</h2>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span>Why is Termux slow or consuming lots of battery?</span>
+                    <span class="faq-toggle">▼</span>
+                </div>
+                <div class="faq-answer">
+                    <p><strong>Possible causes and solutions:</strong></p>
+                    <ul>
+                        <li><strong>Too many processes:</strong> Check with <code>ps aux</code> and stop unnecessary processes</li>
+                        <li><strong>Outdated packages:</strong> Run <code>apt update && apt upgrade</code></li>
+                        <li><strong>Large files:</strong> Working with very large files can slow things down</li>
+                        <li><strong>Disk space low:</strong> Check with <code>df -h</code> - free up space if needed</li>
+                        <li><strong>Device overheating:</strong> Close other apps and let your device cool down</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span>What do I do if apt update fails?</span>
+                    <span class="faq-toggle">▼</span>
+                </div>
+                <div class="faq-answer">
+                    <p><strong>Try these solutions:</strong></p>
+                    <div class="code-block">
+# Clear package cache
+$ apt clean
+
+# Try again with verbose output
+$ apt update -y
+
+# If still failing, check internet connection
+$ ping google.com
+
+# Force install key
+$ apt install -y termux-keyring
+$ apt update
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span>How do I fix "Permission Denied" errors?</span>
+                    <span class="faq-toggle">▼</span>
+                </div>
+                <div class="faq-answer">
+                    <p><strong>Check file permissions:</strong></p>
+                    <div class="code-block">
+# View permissions
+$ ls -l filename
+
+# Make file executable
+$ chmod +x filename
+
+# Change owner
+$ chown user:group filename
+
+# Add write permission
+$ chmod +w filename
+                    </div>
+                    <p>Common permission values:</p>
+                    <ul>
+                        <li><code>755</code> - rwxr-xr-x (executable files)</li>
+                        <li><code>644</code> - rw-r--r-- (regular files)</li>
+                        <li><code>700</code> - rwx------ (private files)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span>How do I reset Termux or clear everything?</span>
+                    <span class="faq-toggle">▼</span>
+                </div>
+                <div class="faq-answer">
+                    <p><strong>⚠️ WARNING: This will delete all data in Termux!</strong></p>
+                    <ol>
+                        <li>Open Android Settings</li>
+                        <li>Go to Apps → Termux</li>
+                        <li>Tap "Storage" → "Clear cache and data"</li>
+                        <li>Reopen Termux</li>
+                    </ol>
+                    <p>Or from terminal:</p>
+                    <div class="code-block">
+# Delete all data (be very careful!)
+$ rm -rf ~/*
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span>Termux keeps crashing. What should I do?</span>
+                    <span class="faq-toggle">▼</span>
+                </div>
+                <div class="faq-answer">
+                    <p><strong>Try these steps:</strong></p>
+                    <ol>
+                        <li>Update to the latest version</li>
+                        <li>Clear cache: Settings → Termux → Storage → Clear cache</li>
+                        <li>Update packages: <code>apt update && apt upgrade -y</code></li>
+                        <li>Free up device storage</li>
+                        <li>Restart your device</li>
+                        <li>Reinstall Termux if problems persist</li>
+                    </ol>
+                    <p>For detailed help, check <a href="https://wiki.termux.com" target="_blank">Termux Wiki</a>.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Advanced Questions -->
+        <div class="faq-category">
+            <h2 class="category-title">🚀 Advanced Questions</h2>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span>How do I set up SSH server in Termux?</span>
+                    <span class="faq-toggle">▼</span>
+                </div>
+                <div class="faq-answer">
+                    <div class="code-block">
+# Install openssh
+$ apt install openssh
+
+# Generate SSH keys (first time only)
+$ ssh-keygen -A
+
+# Start SSH server
+$ sshd
+
+# Find your device IP
+$ ifconfig
+
+# From another device, connect via SSH
+$ ssh -p 8022 user@your.device.ip
+
+# Create non-root user (optional)
+$ useradd -m -s /bin/bash username
+$ passwd username
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span>Can I use cron for scheduled tasks in Termux?</span>
+                    <span class="faq-toggle">▼</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Cron support is limited but can work:</p>
+                    <div class="code-block">
+# Install cron
+$ apt install cronie
+
+# Start cron daemon
+$ crond
+
+# Edit crontab
+$ crontab -e
+
+# Example: Run script daily at 10 AM
+0 10 * * * /data/data/com.termux/files/home/script.sh
+
+# List cron jobs
+$ crontab -l
+                    </div>
+                    <p><strong>Note:</strong> Cron may not work reliably on all devices due to Android's battery optimization.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span>How do I backup my Termux environment?</span>
+                    <span class="faq-toggle">▼</span>
+                </div>
+                <div class="faq-answer">
+                    <div class="code-block">
+# Create a backup archive
+$ tar -czf ~/termux-backup.tar.gz ~
+
+# Copy to storage
+$ cp ~/termux-backup.tar.gz ~/storage/downloads/
+
+# To restore
+$ cd ~
+$ tar -xzf termux-backup.tar.gz
+                    </div>
+                    <p>You can also use cloud storage services to sync your Termux home directory.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span>How do I contribute to Termux project?</span>
+                    <span class="faq-toggle">▼</span>
+                </div>
+                <div class="faq-answer">
+                    <p><strong>Ways to contribute:</strong></p>
+                    <ul>
+                        <li><strong>Code:</strong> Fork the <a href="https://github.com/termux/termux-app" target="_blank">GitHub repository</a> and submit pull requests</li>
+                        <li><strong>Packages:</strong> Create packages for the Termux package ecosystem</li>
+                        <li><strong>Documentation:</strong> Improve the <a href="https://wiki.termux.com" target="_blank">wiki</a></li>
+                        <li><strong>Bug Reports:</strong> Report issues on <a href="https://github.com/termux/termux-app/issues" target="_blank">GitHub Issues</a></li>
+                        <li><strong>Community:</strong> Help other users on <a href="https://reddit.com/r/termux" target="_blank">Reddit</a> or <a href="https://gitter.im/termux/community" target="_blank">Gitter</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- More Help -->
+        <div class="contact-section">
+            <h3>❓ Still have questions?</h3>
+            <p>Can't find the answer you're looking for? Check out these resources:</p>
+            <ul style="list-style: none; color: #00ff41;">
+                <li><a href="https://wiki.termux.com" target="_blank">📚 Termux Wiki</a></li>
+                <li><a href="https://reddit.com/r/termux" target="_blank">👥 Reddit Community (r/termux)</a></li>
+                <li><a href="https://gitter.im/termux/community" target="_blank">💬 Gitter Chat</a></li>
+                <li><a href="https://github.com/termux/termux-app/issues" target="_blank">🐛 GitHub Issues</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <h3>Termux Community</h3>
+            <div class="footer-links">
+                <a href="index.html">Home</a>
+                <a href="documentation.html">Documentation</a>
+                <a href="faq.html">FAQ</a>
+                <a href="about.html">About</a>
+                <a href="https://github.com/termux" target="_blank">GitHub</a>
+                <a href="https://termux.dev" target="_blank">Official Site</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Termux Project. All rights reserved. | Made with ❤️ by the community</p>
+        </div>
+    </footer>
+
+    <script>
+        // Toggle FAQ items
+        function toggleFAQ(element) {
+            const item = element.parentElement;
+            item.classList.toggle('active');
+        }
+
+        // Search functionality
+        document.getElementById('searchBox').addEventListener('keyup', function(e) {
+            const searchTerm = e.target.value.toLowerCase();
+            const faqItems = document.querySelectorAll('.faq-item');
+
+            faqItems.forEach(item => {
+                const question = item.querySelector('.faq-question').textContent.toLowerCase();
+                const answer = item.querySelector('.faq-answer').textContent.toLowerCase();
+                
+                if (question.includes(searchTerm) || answer.includes(searchTerm)) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        });
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                document.getElementById('searchBox').value = '';
+                document.querySelectorAll('.faq-item').forEach(item => {
+                    item.style.display = 'block';
+                });
+            }
+        });
+    </script>
+</body>
+</html>
